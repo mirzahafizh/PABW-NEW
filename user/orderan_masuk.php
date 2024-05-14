@@ -95,7 +95,10 @@ if (isset($_POST['logout'])) {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-    <title>Document</title>
+    <title>Orderan Masuk</title>
+    <link rel="icon" href="../assets/DALL_E-2024-05-15-00.26.01-Design-a-logo-for-_MS-Store_-removebg-preview.png" type="image/png">
+
+
 </head>
 <body class="bg-[#FDEFEF] p-6" style="background-image: url('../assets/unicorn.png');">
 <?php include "navbar.php"; ?>

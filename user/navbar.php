@@ -41,6 +41,9 @@ if (isset($_POST['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MS STORE</title>
+        <!-- Link to favicon -->
+        <link rel="icon" href="../assets/DALL_E-2024-05-15-00.26.01-Design-a-logo-for-_MS-Store_-removebg-preview.png" type="image/png">
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -74,8 +77,7 @@ if (isset($_POST['logout'])) {
             <div class="flex-shrink-0">
                 <!-- Logo -->
                 <a href="berhasil_login.php" id="logo" class="hidden sm:flex items-center mr-4">
-                    <img src="../assets/gg_profile.png" alt="MS STORE Logo" class="w-8 h-8 mr-2">
-                    <span class="text-xl font-bold">MS STORE</span>
+                    <img src="../assets/DALL_E-2024-05-15-00.26.01-Design-a-logo-for-_MS-Store_-removebg-preview.png" alt="MS STORE Logo" class="w-16 h-16 ">
                 </a>
             </div>
             <!-- Search bar -->
@@ -97,7 +99,7 @@ if (isset($_POST['logout'])) {
                         <?php
                         // Check if the user has an avatar path
                         if (isset($profile_image) && $profile_image) {
-                            echo '<img src="../' . $profile_image . '" alt="User Avatar" class="w-8 h-8 rounded-full">';
+                            echo '<img src="' . $profile_image . '" alt="User Avatar" class="w-8 h-8 rounded-full">';
                         } else {
                             // If no avatar path is available, you can use a default image
                             echo '<img src="../assets/gg_profile.png" alt="Default Avatar" class="w-8 h-8 rounded-full">';
@@ -113,15 +115,16 @@ if (isset($_POST['logout'])) {
                                 href="admin.php">Admin</a>
                         <?php elseif ($role === "pengguna"): ?>
                             <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white"
-                                href="toko.php">Toko Saya</a>
-                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white"
                                 href="profile.php">Profile</a>
+                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white"
+                            href="toko.php">Toko Saya</a>
                             <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white" href="orderan_masuk.php">Orderan Masuk</a>
                             <!-- Menampilkan saldo di dropdown -->
-                            <p class="block px-4 py-2 text-sm text-gray-700">Saldo: Rp <?php echo number_format($saldo, 2, ',', '.'); ?></p>
-                            <!-- Menambahkan menu "Status Pesanan" -->
                             <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white"
                                 href="status.php">Status Pesanan</a>
+                            <p class="block px-4 py-2 text-sm text-gray-700">Saldo: Rp <?php echo number_format($saldo, 2, ',', '.'); ?></p>
+                            <!-- Menambahkan menu "Status Pesanan" -->
+
                         <?php elseif ($role === "kurir"): ?>
                             <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white"
                                 href="profile.php">Profil Kurir</a>

@@ -96,6 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $product['name']; ?></title>
+    <link rel="icon" href="../assets/DALL_E-2024-05-15-00.26.01-Design-a-logo-for-_MS-Store_-removebg-preview.png" type="image/png">
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.4/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -191,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                         <!-- Quantity input with plus and minus buttons -->
                         <div class="quantity-controls mt-2w w-[103px] flex items-center">
                             <button type="button" class="px-2 w-1/3" onclick="decrementQuantity(event)">-</button>
-                            <input id="quantity" class="quantity w-1/3 px-2" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>">
+                            <input id="quantity" class="quantity w-1/3 px-2 border-white text-center" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>">
                             <button type="button" class="px-2 w-1/3" onclick="incrementQuantity(event)">+</button>
                         </div>
                     </div>

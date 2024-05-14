@@ -48,6 +48,8 @@ if(isset($_GET['store_name'])) {
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
     <title>Toko</title>
+    <link rel="icon" href="../assets/DALL_E-2024-05-15-00.26.01-Design-a-logo-for-_MS-Store_-removebg-preview.png" type="image/png">
+
 </head>
 <body class="bg-[#FDEFEF] mt-[-20px] bg-cover" style="background-image: url('assets/unicorn.png');">
 <?php include 'navbar.php'; ?>

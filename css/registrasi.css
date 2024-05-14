@@ -1,0 +1,89 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom, #BC6ED7, #E8CDF1);
+    height: 100vh;
+}
+
+.container {
+    width: 100%; /* Mengubah lebar menjadi 100% */
+    max-width: 500px; /* Menetapkan lebar maksimum */
+    margin: 0 auto;
+    margin-top: 100px; /* Mengatur jarak antara form dengan atas halaman */
+}
+
+.registration-form {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.registration-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.registration-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.registration-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 95%; /* Mengubah lebar input menjadi 100% */
+}
+
+.registration-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 95%; /* Mengubah lebar input menjadi 100% */
+}
+
+.registration-form .jenis-akun {
+    margin-bottom: 20px; /* Atur margin bawah sesuai kebutuhan */
+}
+
+.registration-form .jenis-akun select {
+    width: 100%;
+    height: 30px;
+}
+
+.registration-form input[type="submit"] {
+    width: 100%;
+    background-color: #337ab7;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+.registration-form a.login {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #337ab7;
+    margin-top: 10px;
+}
+
+.registration-form button.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.registration-form button.btn:hover {
+    background-color: #135b9e;
+}
+

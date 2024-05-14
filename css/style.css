@@ -1,0 +1,113 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom, #BC6ED7, #E8CDF1);
+    height: 100vh;
+}
+
+.container {
+    width: 500px;
+    margin: 0 auto; /* Ini akan membuat kontainer berada di tengah halaman */
+    margin-top: 200px; /* Menambahkan sedikit margin atas */
+}
+
+
+.login-form {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.login-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid rgba(204, 204, 204, 0.5); /* Menggunakan RGBA untuk memberikan opacity pada border */
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+.login-form input[type="submit"] {
+    width: 200px;
+    background-color: #337ab7;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    opacity: 1;
+    
+    /* Menengahkan tombol horizontal */
+    margin: 0 auto;
+    display: block; /* Memastikan tombol berada di blok */
+}
+
+.login-form a.daftar {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #337ab7;
+    margin-top: 10px; /* Menambahkan margin atas agar tidak terlalu rapat dengan tombol login */
+}
+
+
+
+
+
+.login-form .remember-me {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.login-form .remember-me input {
+    margin-right: 10px;
+}
+
+.login-form .remember-me label {
+    font-size: 12px;
+    margin-top: -8px; /* Menambahkan margin kanan agar sejajar dengan checkbox */
+}
+
+
+.login-form a {
+    text-align: right;
+    font-size: 12px;
+    color: #337ab7;
+}
+
+.forgot-remember {
+    display: flex;
+    justify-content: flex-end; /* Mengatur agar konten berada di sisi kanan */
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.changePassword {
+    text-align: right; /* Mengatur teks "Lupa Sandi?" agar berada di sebelah kanan */
+}
+
+
+.daftar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Menambahkan margin atas agar tidak terlalu rapat dengan tombol login */
+}
+

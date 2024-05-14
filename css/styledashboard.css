@@ -1,0 +1,43 @@
+.search-bar {
+    width: 800px; /* Adjust the width to your preference */
+}
+
+.navbar-logo {
+    max-height: 40px;
+}
+.search-bar {
+    width: 100%;
+}
+.icon-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.user-dropdown {
+    position: relative;
+}
+.user-dropdown .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    left: auto;
+    display: none;
+}
+.user-dropdown:hover .dropdown-menu,
+.user-dropdown.show .dropdown-menu {
+    display: block;
+}
+@media (max-width: 768px) {
+    .navbar-brand,
+    .col-1,
+    .col-2,
+    .col-7 {
+        flex: 0 0 auto;
+    }
+    .col-7 {
+        max-width: none;
+    }
+    .user-dropdown {
+        margin-left: auto;
+    }
+}

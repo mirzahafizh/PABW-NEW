@@ -186,23 +186,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
 
 
                 <!-- Add to Cart form -->
-                <form method="post" action="" class="mt-4 px-3">
-                <div>
-                    <div class="flex items-center mb-4"> <!-- Flex container for Quantity label and input -->
-                        <p class="mr-2 px-3">Quantity</p> <!-- Quantity label -->
-                        <!-- Quantity input with plus and minus buttons -->
-                        <div class="quantity-controls mt-2w w-[103px] flex items-center">
-                            <button type="button" class="px-2 w-1/3" onclick="decrementQuantity(event)">-</button>
-                            <input id="quantity" class="quantity w-1/3 px-2 border-white text-center" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>">
-                            <button type="button" class="px-2 w-1/3" onclick="incrementQuantity(event)">+</button>
-                        </div>
-                    </div>
-                </div>
-                    <button type="submit" name="add_to_cart" class="bg-white-500 rounded-[5px] text-black border px-4 py-2 flex items-center mb-4">
-                        <img src="../assets/simple-line-icons_basket.png" alt="Add to Cart Icon" class="w-6 h-6 mr-2 ">
-                        Add to Cart
-                    </button>
-                </form>
+                <form method="post" action="" class="mt-4 px-3" onsubmit="return validateAddToCart()">
+    <div>
+        <div class="flex items-center mb-4"> <!-- Flex container for Quantity label and input -->
+            <p class="mr-2 px-3">Quantity</p> <!-- Quantity label -->
+            <!-- Quantity input with plus and minus buttons -->
+            <div class="quantity-controls mt-2w w-[103px] flex items-center">
+                <button type="button" class="px-2 w-1/3" onclick="decrementQuantity(event)">-</button>
+                <input id="quantity" class="quantity w-1/3 px-2 border-white text-center" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>">
+                <button type="button" class="px-2 w-1/3" onclick="incrementQuantity(event)">+</button>
+            </div>
+        </div>
+    </div>
+    <button type="submit" name="add_to_cart" class="bg-white-500 rounded-[5px] text-black border px-4 py-2 flex items-center mb-4">
+        <img src="../assets/simple-line-icons_basket.png" alt="Add to Cart Icon" class="w-6 h-6 mr-2 ">
+        Add to Cart
+    </button>
+</form>
             </div>
         </div>
     </div>
@@ -228,6 +228,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
 </div>
 
 
+<script>
+    function validateAddToCart() {
+        var quantityInput = document.getElementById('quantity');
+        var currentQuantity = parseInt(quantityInput.value);
+        var maxQuantity = parseInt(quantityInput.getAttribute('max'));
+        
+        if (currentQuantity <= 0 || currentQuantity > maxQuantity) {
+            alert("Out of stock");
+            return false;
+        }
+        return true;
+    }
+</script>
 
 
 

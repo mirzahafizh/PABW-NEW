@@ -100,10 +100,10 @@ if (isset($_POST['logout'])) {
 
 
 </head>
-<body class="bg-[#FDEFEF] p-6" style="background-image: url('../assets/unicorn.png');">
+<body class="bg-[#FDEFEF] " style="background-image: url('../assets/unicorn.png');">
 <?php include "navbar.php"; ?>
 
-<div class="container mx-auto mt-20">
+<div class="container mx-auto mt-10 p-6">
     <h1 class="text-2xl font-bold mb-4">Orderan</h1>
     <div class="bg-white shadow-md rounded p-6">
         <?php if (!empty($orders)): ?>

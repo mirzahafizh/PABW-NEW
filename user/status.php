@@ -36,8 +36,22 @@ if (isset($_SESSION['username'])) {
 // Ambil data pengguna yang sedang login
 $username = $_SESSION['username'];
 
-// Panggil fungsi untuk mengambil status pesanan
-$statuses = getStatuses($pdo, $username);
+// Mendapatkan status pesanan berdasarkan parameter yang diberikan
+if (isset($_GET['status'])) {
+    $status_filter = $_GET['status'];
+    if ($status_filter === 'menunggu kurir' || $status_filter === 'menunggu penjual') {
+        $stmt = $pdo->prepare("SELECT * FROM orders WHERE username = ? AND status_pesanan = ?");
+        $stmt->execute([$username, $status_filter]);
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM orders WHERE username = ? AND status_pesanan NOT IN ('menunggu kurir', 'menunggu penjual') AND status_pesanan = ?");
+        $stmt->execute([$username, $status_filter]);
+    }
+} else {
+    // Jika tidak ada parameter status, ambil semua status pesanan kecuali "menunggu kurir" dan "menunggu penjual"
+    $stmt = $pdo->prepare("SELECT * FROM orders WHERE username = ? AND status_pesanan NOT IN ('menunggu kurir', 'menunggu penjual')");
+    $stmt->execute([$username]);
+}
+$statuses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Fungsi untuk mendapatkan status pesanan
 function getStatuses($pdo, $username) {
@@ -140,6 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Status Pesanan</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    
     <link rel="icon" href="../assets/DALL_E-2024-05-15-00.26.01-Design-a-logo-for-_MS-Store_-removebg-preview.png" type="image/png">
 
     <!-- Include Tailwind CSS -->
@@ -155,6 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             position: relative;
             z-index: 0; /* Set z-index to a higher value */
         }
+        
     </style>
 </head>
 
@@ -162,56 +178,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Navbar -->
     <?php include "navbar.php"; ?>
-    <div class="flex justify-center  items-center h-screen">
-        <div class=" w-8/12 overflow-y-auto max-h-screen mt-[150px] ">
-            <div class="border w-10/12">
-            <?php if (empty($statuses)) : ?>
-                <p class="text-gray-600 text-center">Tidak ada data status pesanan.</p>
-            <?php else : ?>
-                </div>
+    <div class="flex justify-center items-center h-full ">
+        <div class="w-full max-w-6xl overflow-y-auto mt-16 bg-white p-4">
+            <!-- Filter buttons -->
+            <div class="flex justify-center mb-4">
+                <a href="?status=menunggu penjual" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-4">Menunggu Penjual</a>
+                <a href="?status=menunggu kurir" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-4">Menunggu Kurir</a>
+                <a href="?status=sedang dikirim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-4">Sedang Dikirim</a>
+                <a href="?status=diterima pembeli" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Sudah Diterima</a>
+            </div>
+
+            <!-- List of orders -->
+            <div class=" w-full">
+                <?php if (empty($statuses)) : ?>
+                    <p class="text-gray-600 text-center">Tidak ada data status pesanan.</p>
+                <?php else : ?>
                     <?php foreach ($statuses as $status) : ?>
-                        <div class="bg-white border h-[220px] border-gray-300 rounded-md mb-4 ">
-                        <div class="flex ">
-                        <div class="p-4 w-1/6 ">
-                            <h2 class="text-lg font-bold mt-[-10px] mb-8"><?php echo $status['store_name']; ?></h2>
-                            <img src="../barang/<?php echo $status['photo']; ?>" alt="<?php echo $status['name']; ?>" class="w-full h-auto object-fit rounded-md mx-auto my-auto"> <!-- Tambahkan mx-auto dan my-auto -->
-                        </div>
-
-                            <div class="p-4 flex w-full justify-between">
-                                <div class="w-3/4">
-                                    <h2 class="text-lg font-bold uppercase "><?php echo $status['name']; ?></h2>
-                                    <p class="text-black font-semibold border-b-2">Rp <?php echo number_format($status['total_items_price'], 0, ',', '.'); ?></p>
-                                    <p class="text-gray-600 font-bold text-[14px]">ID Pesanan: <?php echo $status['id_order']; ?></p>
-                                    <p class="text-gray-600 font-bold text-[14px]">Tanggal Pesanan: <?php echo $status['order_date']; ?></p>
-                                    <p class="text-gray-600 text-[14px]">Status Pesanan: <?php echo $status['status_pesanan']; ?></p>
-                                </div>
-                                <div class="w-1/4 flex flex-col items-end">
-                                <p class="text-gray-600  "><?php echo $status['quantity']; ?> pcs </p>
-                                </div>
-                            </div>
-
-                            </div>
-                            <div class="p-4 w-full flex justify-end mt-[-90px]">
-                                    <p class="text-gray-600">Total Pesanan : Rp<?php echo number_format($status['total_price'], 0, ',', '.'); ?></p>
+                        <div class="bg-white border rounded-md mb-4">
+                            <div class="flex">
+                                <div class="p-4 w-1/6">
+                                    <h2 class="text-lg font-bold"><?php echo $status['store_name']; ?></h2>
+                                    <img src="../barang/<?php echo $status['photo']; ?>" alt="<?php echo $status['name']; ?>" class="w-full h-auto object-fit rounded-md mt-4">
                                 </div>
 
-                                <div class="p-4 w-full flex justify-end mt-[-20px]">
-                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                                        <input type="hidden" name="order_id" value="<?php echo $status['id_order']; ?>">
+                                <div class="p-4 w-5/6 flex flex-col justify-between">
+                                    <div>
+                                        <h2 class="text-lg font-bold uppercase mb-4"><?php echo $status['name']; ?></h2>
+                                        <p class="text-black font-semibold border-b-2">Rp <?php echo number_format($status['total_items_price'], 0, ',', '.'); ?></p>
+                                        <p class="text-gray-600 font-bold text-sm">ID Pesanan: <?php echo $status['id_order']; ?></p>
+                                        <p class="text-gray-600 font-bold text-sm">Tanggal Pesanan: <?php echo $status['order_date']; ?></p>
+                                        <p class="text-gray-600 text-sm">Status Pesanan: <?php echo $status['status_pesanan']; ?></p>
+                                    </div>
+                                    <div class="flex justify-between mt-4">
+                                        <p class="text-gray-600"><?php echo $status['quantity']; ?> pcs</p>
+                                        <p class="text-gray-600">Total Pesanan : Rp<?php echo number_format($status['total_price'], 0, ',', '.'); ?></p>
                                         <?php if ($status['status_pesanan'] === 'sampai ditujuan') : ?>
-                                            <button type="submit" name="status" value="diterima pembeli" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                                Sudah Diterima
-                                            </button>
+                                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                                <input type="hidden" name="order_id" value="<?php echo $status['id_order']; ?>">
+                                                <button type="submit" name="status" value="diterima pembeli" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                                    Sudah Diterima
+                                                </button>
+                                            </form>
                                         <?php endif; ?>
-                                    </form>
+                                    </div>
                                 </div>
-
                             </div>
+                        </div>
                     <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
+    <button onclick="goToTop()" id="goToTopBtn" title="Go to top" class="fixed bottom-4 right-4 bg-[#FF3D00] hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded hidden">⬆️</button>
+
+    <script>
+    // Function to scroll to the top of the page smoothly
+    function goToTop() {
+        // Scroll smoothly to the top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Function to show or hide the "Go to Top" button based on scroll position
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        // Show or hide the button based on the scroll position
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("goToTopBtn").style.display = "block";
+        } else {
+            document.getElementById("goToTopBtn").style.display = "none";
+        }
+    }
+</script>
+
 </body>
 
 </html>

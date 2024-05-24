@@ -274,7 +274,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 </head>
 
-<body class="bg-[#FDEFEF] p-6" style="background-image: url('assets/unicorn.png');">
+<body class="bg-[#FDEFEF] " style="background-image: url('assets/unicorn.png');">
 
     <?php include "navbar.php"; ?>
 
